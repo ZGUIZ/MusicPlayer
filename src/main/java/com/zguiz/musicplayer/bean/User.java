@@ -1,7 +1,10 @@
 package com.zguiz.musicplayer.bean;
 
 
+import org.springframework.data.annotation.Id;
+
 public class User {
+    @Id
     private String userName;
     private String passWord;
     private String nickName;
