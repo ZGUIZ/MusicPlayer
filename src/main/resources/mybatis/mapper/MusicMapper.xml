@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zguiz.musicplayer.mapper.MusicMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.zguiz.musicplayer.bean.Music">
+		<id column="id" property="id" />
+		<result column="music_name" property="musicName" />
+		<result column="artist" property="artist" />
+		<result column="bps" property="bps" />
+		<result column="length" property="length" />
+		<result column="url" property="url" />
+	</resultMap>
+
+	<select id="searchMusic" resultMap="BaseResultMap" parameterType="com.zguiz.musicplayer.bean.SearchCondition">
+		select * from music
+		<where>
+			1 = 1
+			<if test="searchString != null">
+				and (music_name like CONCAT("%",#{searchString},"%")
+				or artist like CONCAT("%",#{searchString},"%"))
+			</if>
+			limit #{start},#{pageSize}
+		</where>
+	</select>
+
+</mapper>
