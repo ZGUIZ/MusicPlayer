@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         }
         userMessage.setIpAddress(IpAddressUtil.getIpAddress(request));
         //利用redis记录登录消息
-        insertReids(userMessage);
+        insertRedis(userMessage);
         return userMapper.getUser(user);
     }
 
@@ -74,10 +74,25 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    private void insertReids(User user){
+    @Override
+    public void logout(User user, HttpServletRequest request) {
+        delRedis(user);
+    }
+
+    //插入到redis中
+    private void insertRedis(User user){
+        //检查用户是否已经登录
         if(jedis.hexists(LOGIN+user.getUserName(),"userName")){
             throw new RuntimeException("用户已经登录");
         }
+        //将用户信息存放入reids
         jedis.hmset(LOGIN+user.getUserName(),user.toMap());
+    }
+
+    //从redis中删除
+    private void delRedis(User user){
+        if(jedis.hexists(LOGIN+user.getUserName(),"userName")){
+            jedis.hdel(LOGIN+user.getUserName(),"userName","nickName","icon","ipAddress");
+        }
     }
 }

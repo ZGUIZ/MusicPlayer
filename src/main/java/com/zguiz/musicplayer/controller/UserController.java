@@ -43,6 +43,13 @@ public class UserController extends BaseController{
         return userService.login(user,getRequest());
     }
 
+    @RequestMapping("/logout")
+    @ResponseBody
+    public String logout(User user){
+        userService.logout(user,getRequest());
+        return "success";
+    }
+
     /**
      * 用于测试redis，没有任何用处
      * @return

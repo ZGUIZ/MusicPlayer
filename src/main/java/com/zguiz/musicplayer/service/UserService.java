@@ -10,4 +10,5 @@ public interface UserService {
     User login(User user, HttpServletRequest request);
     User login(String userName,String Password, HttpServletRequest request);
     User getRedisInfo(User user);
+    void logout(User user,HttpServletRequest request);
 }
