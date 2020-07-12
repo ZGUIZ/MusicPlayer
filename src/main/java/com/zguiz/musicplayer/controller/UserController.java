@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;
@@ -21,11 +21,37 @@ public class UserController {
         return userService.registerUser(user);
     }
 
+    /**
+     * 用于测试数据库链接，没有任何用处
+     * @return
+     */
     @RequestMapping("/getUser")
     @ResponseBody
     public User getUser(){
         User user = new User();
         user.setUserName("ZGUIZ");
         return userService.getUser(user);
+    }
+
+    /**
+     * 登录
+     * @return
+     */
+    @RequestMapping("/login")
+    @ResponseBody
+    public User login(User user){
+        return userService.login(user,getRequest());
+    }
+
+    /**
+     * 用于测试redis，没有任何用处
+     * @return
+     */
+    @RequestMapping("/getRedisInfo")
+    @ResponseBody
+    public User getInfo(){
+        User user = new User();
+        user.setUserName("ZGUIZ");
+        return userService.getRedisInfo(user);
     }
 }
