@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MusicService {
     List<Music> searchMusic(String condition,int page);
-
+    List<Music> searchMusicByListId(String listId,Integer page);
 }

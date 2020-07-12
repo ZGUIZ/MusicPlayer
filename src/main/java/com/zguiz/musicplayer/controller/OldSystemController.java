@@ -34,7 +34,7 @@ public class OldSystemController {
 
     @RequestMapping("/findMusicByList")
     @ResponseBody
-    public List<Music> getMusicByList(){
-        return null;
+    public List<Music> getMusicByList(@RequestParam(value = "listId") String id,@RequestParam(value = "pageNo",required = false) Integer page){
+        return musicService.searchMusicByListId(id,page);
     }
 }

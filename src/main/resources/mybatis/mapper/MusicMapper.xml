@@ -24,4 +24,12 @@
 		</where>
 	</select>
 
+	<select id="findMusicByList" resultMap="BaseResultMap" parameterType="com.zguiz.musicplayer.bean.SearchCondition">
+		select music.* from music
+		left join relmusicclass on (music.id = relmusicclass.musicid)
+		left join musclassify on (relmusicclass.classid = musclassify.id)
+		where musclassify.id = #{searchString}
+		limit #{start},#{pageSize}
+	</select>
+
 </mapper>

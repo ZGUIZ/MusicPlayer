@@ -23,4 +23,15 @@ public class MusicServiceImpl implements MusicService {
         searchCondition.setPage(page);
         return musicMapper.searchMusic(searchCondition);
     }
+
+    @Override
+    public List<Music> searchMusicByListId(String listId, Integer page) {
+        if(page == null || page == 0){
+            page = 1;
+        }
+        SearchCondition<Music> searchCondition = new SearchCondition<>();
+        searchCondition.setSearchString(listId);
+        searchCondition.setPage(page);
+        return musicMapper.findMusicByList(searchCondition);
+    }
 }

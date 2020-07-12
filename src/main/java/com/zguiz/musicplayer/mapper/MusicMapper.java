@@ -14,4 +14,6 @@ public interface MusicMapper {
      * @return
      */
     List<Music> searchMusic(SearchCondition<Music> conditionObject);
+
+    List<Music> findMusicByList(SearchCondition<Music> conditionObject);
 }
