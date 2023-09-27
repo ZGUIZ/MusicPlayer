@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+    <!--spring-beans-4.3这里的4.3是指明版本号 -->
+    <!-- 1.配置目标类 -->
+    <bean id="userDao" class="com.lin.jdk.UserDaoImpl"></bean>
+
+    <!-- 2.配置切面类 -->
+    <bean id="myAspect" class="com.lin.factorybean.MyAspect"></bean>
+
+    <bean id="testAdvisor" class="com.zguiz.musicplayer.Advisor.TestAdvisor"/>
+    <!-- 3.使用Spring代理工厂定义一个名为userDaoProxy的代理对象 -->
+    <bean id="testAOP" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces" value="com.zguiz.musicplayer.service"></property>
+        <property name="target">
+            <bean class="com.zguiz.musicplayer.service.impl.MusicServiceImpl"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>testAdvisor</value>
+            </list>
+        </property>
+    </bean>
+</beans>
