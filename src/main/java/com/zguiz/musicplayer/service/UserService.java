@@ -11,4 +11,8 @@ public interface UserService {
     User login(String userName,String Password, HttpServletRequest request);
     User getRedisInfo(User user);
     void logout(User user,HttpServletRequest request);
+
+    default void log(){
+        System.out.println("aaaa");
+    }
 }
