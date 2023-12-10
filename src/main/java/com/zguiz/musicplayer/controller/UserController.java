@@ -1,6 +1,9 @@
 package com.zguiz.musicplayer.controller;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import com.zguiz.musicplayer.bean.Shopping;
 import com.zguiz.musicplayer.bean.User;
+import com.zguiz.musicplayer.elasticsearch.ElasticClient;
 import com.zguiz.musicplayer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,8 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
@@ -33,8 +38,43 @@ public class UserController extends BaseController{
     @ResponseBody
     public User getUser(){
         User user = new User();
-        user.setUserName("ZGUIZ");
+            user.setUserName("ZGUIZ");
+
         return userService.getUser(user);
+    }
+
+    @RequestMapping("/queryShopping")
+    @ResponseBody
+    public List<Shopping> queryShopping(){
+        ElasticClient elasticClient = new ElasticClient();
+        ElasticsearchClient client = elasticClient.getClient();
+        try {
+            //添加数据
+            //elasticClient.addData(client);
+            //查询
+            List<Shopping> shoppings = elasticClient.searchAll(client);
+            return shoppings;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @RequestMapping("/queryShoppingByCategory")
+    @ResponseBody
+    public List<Shopping> queryShoppingByCategory(){
+        ElasticClient elasticClient = new ElasticClient();
+        ElasticsearchClient client = elasticClient.getClient();
+        try {
+            //添加数据
+            //elasticClient.addData(client);
+            //查询
+            List<Shopping> shoppings = elasticClient.searchByCategory(client, "shopping", "小米");
+            return shoppings;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
