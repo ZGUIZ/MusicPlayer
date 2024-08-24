@@ -3,7 +3,9 @@ package com.zguiz.musicplayer.controller;
 import com.zguiz.musicplayer.Test.AopDemo1;
 import com.zguiz.musicplayer.Test.IocDemo;
 import com.zguiz.musicplayer.bean.Classify;
+import com.zguiz.musicplayer.bean.Comment;
 import com.zguiz.musicplayer.bean.Music;
+import com.zguiz.musicplayer.mongodb.dao.CommentRepository;
 import com.zguiz.musicplayer.service.ClassifyService;
 import com.zguiz.musicplayer.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class OldSystemController extends BaseController{
     @Autowired
     private AopDemo1 demo1;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     @RequestMapping("/findMusic")
     @ResponseBody
     public List<Music> searchMusicList(@RequestParam(value = "cond",required = false) String cond,@RequestParam("pageNo") int page){
@@ -36,7 +41,8 @@ public class OldSystemController extends BaseController{
     public List<Classify> getClassify(){
         IocDemo demo =  new IocDemo();
         demo.setTest("test111");
-        demo1.test2(demo);
+        List<Comment> commentList = commentRepository.findAll();
+        //demo1.test2(demo);
         return classifyService.getClassify();
     }
 

@@ -5,21 +5,24 @@ import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import co.elastic.clients.elasticsearch.core.IndexRequest;
-import co.elastic.clients.elasticsearch.core.IndexResponse;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.UpdateRequest;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.zguiz.musicplayer.bean.Shopping;
 import org.apache.http.HttpHost;
-import org.apache.lucene.queryparser.xml.builders.TermQueryBuilder;
+
 import org.elasticsearch.client.RestClient;
 
 import java.io.IOException;
+import java.sql.Wrapper;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ElasticClient {
@@ -77,8 +80,8 @@ public class ElasticClient {
         return shoppings;
     }
 
-    public void updateRow(ElasticsearchClient client,Shopping shopping){
-
+    public void updateRow(ElasticsearchClient client,Shopping shopping,String id){
     }
+
 }
 
